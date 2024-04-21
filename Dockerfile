@@ -16,4 +16,4 @@ COPY . $PROJECT_DIR
 
 CMD mvn spring-boot:run
 
-EXPOSE 8081
+EXPOSE 8080
