@@ -4,12 +4,11 @@ import org.cmu.pf_backend.dto.*
 import org.cmu.pf_backend.model.Farmer
 import org.cmu.pf_backend.service.HashService
 import org.cmu.pf_backend.service.TokenService
-import org.cmu.pf_backend.service.UserService
+import org.cmu.pf_backend.service.FarmerService
 import org.springframework.http.HttpStatus
 import org.springframework.scheduling.annotation.Async
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
-import java.util.Currency
 
 
 @RestController
@@ -17,12 +16,12 @@ import java.util.Currency
 class AuthenticationController(
     val hashService: HashService,
     val tokenService: TokenService,
-    val userService: UserService,
+    val farmerService: FarmerService,
 ) {
 
     @PostMapping("/login")
     fun login(@RequestBody payload: LoginDto): LoginResponseDto {
-        val user = userService.findByEmail(payload.email) ?: throw ResponseStatusException(
+        val user = farmerService.findByEmail(payload.email) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND,
             "User not found"
         )
@@ -38,14 +37,13 @@ class AuthenticationController(
                 firstName = user.firstName,
                 lastName = user.lastName,
                 email = user.email,
-
             )
         )
     }
 
     @PostMapping("/register")
     fun register(@RequestBody payload: RegisterDto): LoginResponseDto {
-        if (userService.findByEmail(payload.email) != null) {
+        if (farmerService.findByEmail(payload.email) != null) {
             throw ResponseStatusException(HttpStatus.CONFLICT, "User already exists")
         }
 
@@ -53,7 +51,7 @@ class AuthenticationController(
             email = payload.email,
             password = hashService.hashBcrypt(payload.password),
         )
-        val savedUser = userService.createUser(farmer)
+        val savedUser = farmerService.createUser(farmer)
 
         //create Wallet for the created user
 

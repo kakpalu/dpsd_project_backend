@@ -2,9 +2,8 @@ package org.cmu.pf_backend.controller
 
 import org.cmu.pf_backend.config.toUser
 import org.cmu.pf_backend.dto.UserDto
-import org.cmu.pf_backend.dto.WalletDto
 import org.cmu.pf_backend.model.Farmer
-import org.cmu.pf_backend.service.UserService
+import org.cmu.pf_backend.service.FarmerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -12,7 +11,7 @@ import org.springframework.security.core.Authentication
 
 @RestController
 @RequestMapping("/api")
-class UserController (val userService: UserService) {
+class UserController (val farmerService: FarmerService) {
 
     @GetMapping("/user/profile")
     fun getUserProfile(authentication: Authentication): ResponseEntity<UserDto> {
@@ -32,7 +31,7 @@ class UserController (val userService: UserService) {
 
         val authUser = authentication.toUser()
         val updatedUser = authUser.copy(firstName = farmer.firstName, lastName = farmer.lastName, email = farmer.email)
-        userService.updateUser(
+        farmerService.updateUser(
             id = updatedUser.id,
             firstName =  updatedUser.firstName,
             lastName =  updatedUser.lastName,

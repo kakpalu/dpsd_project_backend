@@ -1,6 +1,5 @@
 package org.cmu.pf_backend.dto
 
-import org.cmu.pf_backend.model.Farmer
 import java.util.*
 
 /**
@@ -26,11 +25,8 @@ data class UserDto(
     val email: String,
 )
 
-data class TransactionDto(
+data class AmbientVariableResponseDto(
     val id: Long,
-    val amount: Double,
-    val description: String,
-    val reference: String,
-    val currency: Currency,
-    val recipient: Farmer,
+    val name: String,
+    val threshold: Double,
 )

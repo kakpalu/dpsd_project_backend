@@ -17,10 +17,9 @@ data class RegisterDto(
 )
 
 
-data class CreateTransactionDto(
+data class AddAmbientVariableDto(
     val name: String,
-    val count: Int,
-    val note: String?,
+    val threshold: Double,
 )
 
 data class UpdateTransactionDto(

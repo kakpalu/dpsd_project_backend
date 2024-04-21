@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit
 class TokenService(
     private val jwtDecoder: JwtDecoder,
     private val jwtEncoder: JwtEncoder,
-    private val userService: UserService
+    private val farmerService: FarmerService
 ) {
     fun createToken(farmer: Farmer): String {
         val jwsHeader = JwsHeader.with { "HS256" }.build()
@@ -29,16 +29,21 @@ class TokenService(
             .subject(farmer.firstName)
             .claim("userId", farmer.id)
             .build()
-        return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).tokenValue
+
+        val token = jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).tokenValue
+        storeToken(token, farmer)
+        return token
     }
 
     fun parseToken(token: String): Farmer? {
         return try {
-            val jwt = jwtDecoder.decode(token)
-            val userId = jwt.claims["userId"] as Long
-            userService.getUser(userId)
+            farmerService.findByToken(token)
         } catch (e: Exception) {
             null
         }
+    }
+
+    fun storeToken(token: String, farmer: Farmer) {
+        farmerService.storeToken(token, farmer)
     }
 }

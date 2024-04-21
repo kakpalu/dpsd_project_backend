@@ -9,5 +9,5 @@ data class AmbientVariable (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
     var name: String = "",
-    var treshold : Double = 0.0,
+    var threshold : Double = 0.0,
 )

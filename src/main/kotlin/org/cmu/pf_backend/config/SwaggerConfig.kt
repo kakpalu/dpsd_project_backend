@@ -12,8 +12,8 @@ class SwaggerConfig {
     fun springShopOpenAPI(): OpenAPI {
         return OpenAPI()
             .info(
-                Info().title("EWallet API Docs")
-                    .description("MILANO EWALLET REST API documentation")
+                Info().title("PigFarmer API Docs")
+                    .description("Backend REST API documentation")
                     .version("v1.0.0")
             )
     }
