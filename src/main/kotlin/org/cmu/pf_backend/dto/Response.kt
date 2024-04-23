@@ -1,5 +1,7 @@
 package org.cmu.pf_backend.dto
 
+import org.springframework.http.HttpStatusCode
+import org.springframework.web.bind.annotation.ResponseStatus
 import java.util.*
 
 /**
@@ -9,7 +11,8 @@ import java.util.*
 
 data class LoginResponseDto(
     val token: String,
-    val user: UserDto
+    val user: UserDto,
+    val statusCode: HttpStatusCode,
 )
 
 
