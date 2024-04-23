@@ -54,7 +54,7 @@ class FarmerService(private val farmerRepository: FarmerRepository) {
 
        fun storeToken(token: String, farmer: Farmer) {
             // Store the token in the database
-           farmer.token = token
+           farmer.token = "Bearer $token"
             farmerRepository.save(farmer)
         }
 }

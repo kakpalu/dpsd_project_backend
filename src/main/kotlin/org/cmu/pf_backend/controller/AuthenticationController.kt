@@ -49,6 +49,8 @@ class AuthenticationController(
 
         val farmer = Farmer(
             email = payload.email,
+            firstName = payload.firstName,
+            lastName = payload.lastName,
             password = hashService.hashBcrypt(payload.password),
         )
         val savedUser = farmerService.createUser(farmer)

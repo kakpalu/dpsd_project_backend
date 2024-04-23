@@ -14,22 +14,20 @@ import org.springframework.security.core.Authentication
 class UserController (val farmerService: FarmerService) {
 
     @GetMapping("/user/profile")
-    fun getUserProfile(authentication: Authentication): ResponseEntity<UserDto> {
-        val authUser = authentication.toUser()
+    fun getUserProfile(@RequestHeader("Authorization") bearerToken: String): ResponseEntity<UserDto> {
+        val authUser = farmerService.findByToken(bearerToken) ?: return ResponseEntity(HttpStatus.UNAUTHORIZED)
         val userDto = UserDto(
             id = authUser.id,
             firstName = authUser.firstName,
             lastName = authUser.lastName,
             email = authUser.email,
-
         )
         return ResponseEntity(userDto, HttpStatus.OK)
     }
 
     @PutMapping("/user/profile")
-    fun updateUserProfile(authentication: Authentication, @RequestBody farmer: Farmer): ResponseEntity<Farmer> {
-
-        val authUser = authentication.toUser()
+    fun updateUserProfile(@RequestHeader("Authorization") bearerToken: String, @RequestBody farmer: Farmer): ResponseEntity<UserDto> {
+        val authUser = farmerService.findByToken(bearerToken) ?: return ResponseEntity(HttpStatus.UNAUTHORIZED)
         val updatedUser = authUser.copy(firstName = farmer.firstName, lastName = farmer.lastName, email = farmer.email)
         farmerService.updateUser(
             id = updatedUser.id,
@@ -37,6 +35,13 @@ class UserController (val farmerService: FarmerService) {
             lastName =  updatedUser.lastName,
             email =  updatedUser.email
         )
-        return ResponseEntity(updatedUser, HttpStatus.OK)
+        val userDto = UserDto(
+            id = updatedUser.id,
+            firstName = updatedUser.firstName,
+            lastName = updatedUser.lastName,
+            email = updatedUser.email,
+
+            )
+        return ResponseEntity(userDto, HttpStatus.OK)
     }
 }

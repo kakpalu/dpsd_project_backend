@@ -37,11 +37,9 @@ class SecurityConfig(
                     auth.requestMatchers(HttpMethod.POST, "/api/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/health").permitAll()
-
                         .requestMatchers(HttpMethod.GET, "/api/ambient_variables").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/ambient_variables").permitAll()
-
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/api/**").permitAll()
                         .anyRequest().permitAll()
                 },
             )
