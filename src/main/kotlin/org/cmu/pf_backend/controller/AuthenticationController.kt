@@ -37,7 +37,8 @@ class AuthenticationController(
                 firstName = user.firstName,
                 lastName = user.lastName,
                 email = user.email,
-            )
+            ),
+            statusCode = HttpStatus.OK
         )
     }
 
@@ -64,9 +65,9 @@ class AuthenticationController(
                 id = savedUser.id,
                 firstName = savedUser.firstName,
                 lastName = savedUser.lastName,
-                email = savedUser.email,
-
-            )
+                email = savedUser.email
+            ),
+            statusCode = HttpStatus.CREATED
         )
     }
     @Async
