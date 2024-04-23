@@ -25,6 +25,14 @@ data class UserDto(
     val email: String,
 )
 
+data class PigDto(
+    val id: Long,
+    val name: String,
+    val weight: Double,
+    val age: Int,
+    val breed: String,
+)
+
 data class AmbientVariableResponseDto(
     val id: Long,
     val name: String,

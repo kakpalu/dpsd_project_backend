@@ -16,6 +16,12 @@ data class RegisterDto(
     val password: String,
 )
 
+data class AddPigDto(
+    val name: String,
+    val weight: Double,
+    val age: Int,
+    val breed: String,
+)
 
 data class AddAmbientVariableDto(
     val name: String,
