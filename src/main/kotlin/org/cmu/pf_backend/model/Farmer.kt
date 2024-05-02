@@ -12,6 +12,7 @@ data class Farmer(
     var lastName: String = "",
     var email: String = "",
     var password: String = "",
+    var role: String = "",
     var token: String = ""
 )
 
