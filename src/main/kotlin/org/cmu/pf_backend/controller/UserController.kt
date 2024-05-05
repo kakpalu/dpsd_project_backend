@@ -13,6 +13,22 @@ import org.springframework.security.core.Authentication
 @RequestMapping("/api")
 class UserController (val farmerService: FarmerService) {
 
+    @GetMapping("/users")
+    // the function is used to get all users in the database. It returns a list of UserDto, but it does not require any input.
+    fun getUsers(): ResponseEntity<List<UserDto>> {
+        val users = farmerService.getAllUsers()
+        val userDtos = users.map {
+            UserDto(
+                id = it.id,
+                firstName = it.firstName,
+                lastName = it.lastName,
+                email = it.email,
+            )
+        }
+        return ResponseEntity(userDtos, HttpStatus.OK)
+    }
+
+
     @GetMapping("/user/profile")
     fun getUserProfile(@RequestHeader("Authorization") bearerToken: String): ResponseEntity<UserDto> {
         val authUser = farmerService.findByToken(bearerToken) ?: return ResponseEntity(HttpStatus.UNAUTHORIZED)
@@ -43,5 +59,14 @@ class UserController (val farmerService: FarmerService) {
 
             )
         return ResponseEntity(userDto, HttpStatus.OK)
+    }
+
+
+    // function to delete the user account
+    @DeleteMapping("/user/profile")
+    fun deleteUserProfile(@RequestHeader("Authorization") bearerToken: String): ResponseEntity<UserDto> {
+        val authUser = farmerService.findByToken(bearerToken) ?: return ResponseEntity(HttpStatus.UNAUTHORIZED)
+        farmerService.deleteUser(authUser.id)
+        return ResponseEntity(HttpStatus.OK)
     }
 }
