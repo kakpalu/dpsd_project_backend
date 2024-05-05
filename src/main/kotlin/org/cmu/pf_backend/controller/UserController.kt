@@ -61,6 +61,21 @@ class UserController (val farmerService: FarmerService) {
         return ResponseEntity(userDto, HttpStatus.OK)
     }
 
+    // function to change the password
+    @PutMapping("/user/password")
+    fun changePassword(@RequestHeader("Authorization") bearerToken: String, @RequestBody password: String): ResponseEntity<UserDto> {
+        val authUser = farmerService.findByToken(bearerToken) ?: return ResponseEntity(HttpStatus.UNAUTHORIZED)
+        farmerService.changePassword(authUser.id, password)
+        return ResponseEntity(HttpStatus.OK)
+    }
+
+    // function to reset password
+    @PutMapping("/user/reset-password")
+    fun resetPassword(@RequestBody email: String, @RequestBody password: String): ResponseEntity<UserDto> {
+        farmerService.resetPassword(email, password)
+        return ResponseEntity(HttpStatus.OK)
+    }
+
 
     // function to delete the user account
     @DeleteMapping("/user/profile")
