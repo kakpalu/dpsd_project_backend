@@ -52,6 +52,20 @@ class FarmerService(private val farmerRepository: FarmerRepository) {
         farmerRepository.deleteById(id)
     }
 
+    // function to change the password
+    fun changePassword(id: Long, password: String): Farmer {
+        val user = farmerRepository.findById(id).orElseThrow { IllegalArgumentException("User not found") }
+        user.password = password
+        return farmerRepository.save(user)
+    }
+
+    // function to reset password
+    fun resetPassword(email: String, password: String): Farmer {
+        val user = findByEmail(email) ?: throw IllegalArgumentException("User not found")
+        user.password = password
+        return farmerRepository.save(user)
+    }
+
        fun storeToken(token: String, farmer: Farmer) {
             // Store the token in the database
            farmer.token = "Bearer $token"
