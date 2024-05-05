@@ -38,3 +38,13 @@ data class AmbientVariableResponseDto(
     val name: String,
     val threshold: Double,
 )
+
+data class PigVitalsResponseDto(
+    val pigId: Long,
+    val temperature: Double,
+    val heartRate: Int,
+    val respiratoryRate: Int,
+    val weight: Double,
+)
+
+
