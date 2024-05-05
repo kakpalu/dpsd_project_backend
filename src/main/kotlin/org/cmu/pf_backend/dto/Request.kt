@@ -34,3 +34,15 @@ data class UpdateTransactionDto(
     val count: Int,
     val note: String?,
 )
+
+data class AddPigVitalsDto(
+    val pigId: Long,
+    val temperature: Double,
+    val heartRate: Int,
+    val respiratoryRate: Int,
+    val weight: Double,
+)
+
+data class GetDiseaseDto(
+    val symptoms: String,
+)

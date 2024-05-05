@@ -1,7 +1,9 @@
 package org.cmu.pf_backend.model
 
 import jakarta.persistence.*
+import org.hibernate.annotations.CreationTimestamp
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "ambient_log")
@@ -16,5 +18,8 @@ data class AmbientLog(
     val ambientVariable: AmbientVariable = AmbientVariable(),
 
     val value: Double = 0.0,
-    val comment: String = ""
+    val comment: String = "",
+
+    @CreationTimestamp
+    val dateTime: LocalDateTime = LocalDateTime.now()
 )
