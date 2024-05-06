@@ -39,4 +39,8 @@ class PigService (private val pigRepository: PigRepository) {
         if (!pigRepository.existsById(id)) throw IllegalArgumentException("Variable not found")
         pigRepository.deleteById(id)
     }
+
+    fun existsById(id: Long): Boolean {
+        return pigRepository.existsById(id)
+    }
 }
