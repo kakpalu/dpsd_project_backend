@@ -31,6 +31,11 @@ class PigVitalsController(val pigVialsService: PigVitalsService, val pigService:
     @PostMapping("/pig_vitals")
     fun addPigVitials(@RequestBody addPigVitals: AddPigVitalsDto): ResponseEntity<List<PigVitalsResponseDto>> {
 
+        //check if pig id exists
+        if (!pigService.existsById(addPigVitals.pigId)) {
+            return ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+
         val pigVitals = PigVitals(
             pig = pigService.getPig(addPigVitals.pigId),
             temperature = addPigVitals.temperature,
