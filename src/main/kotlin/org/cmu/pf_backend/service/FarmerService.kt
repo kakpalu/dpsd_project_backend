@@ -3,9 +3,12 @@ package org.cmu.pf_backend.service
 import org.cmu.pf_backend.model.Farmer
 import org.cmu.pf_backend.repository.FarmerRepository
 import org.springframework.stereotype.Service
+import org.cmu.pf_backend.service.HashService
 
 @Service
 class FarmerService(private val farmerRepository: FarmerRepository) {
+
+    private val hashService = HashService()
 
     fun createUser(farmer: Farmer): Farmer {
         return farmerRepository.save(farmer)
@@ -52,17 +55,17 @@ class FarmerService(private val farmerRepository: FarmerRepository) {
         farmerRepository.deleteById(id)
     }
 
-    // function to change the password
     fun changePassword(id: Long, password: String): Farmer {
+
         val user = farmerRepository.findById(id).orElseThrow { IllegalArgumentException("User not found") }
-        user.password = password
+        user.password = hashService.hashBcrypt(password)
         return farmerRepository.save(user)
     }
 
     // function to reset password
     fun resetPassword(email: String, password: String): Farmer {
         val user = findByEmail(email) ?: throw IllegalArgumentException("User not found")
-        user.password = password
+        user.password = hashService.hashBcrypt(password)
         return farmerRepository.save(user)
     }
 
