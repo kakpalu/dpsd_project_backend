@@ -61,18 +61,22 @@ class UserController (val farmerService: FarmerService) {
         return ResponseEntity(userDto, HttpStatus.OK)
     }
 
-    // function to change the password
+data class PasswordChangeRequest(val password: String)
+
     @PutMapping("/user/password")
-    fun changePassword(@RequestHeader("Authorization") bearerToken: String, @RequestBody password: String): ResponseEntity<UserDto> {
+    fun changePassword(@RequestHeader("Authorization") bearerToken: String, @RequestBody passwordChangeRequest: PasswordChangeRequest): ResponseEntity<UserDto> {
         val authUser = farmerService.findByToken(bearerToken) ?: return ResponseEntity(HttpStatus.UNAUTHORIZED)
-        farmerService.changePassword(authUser.id, password)
+        farmerService.changePassword(authUser.id, passwordChangeRequest.password)
         return ResponseEntity(HttpStatus.OK)
     }
 
-    // function to reset password
+    
+    data class ResetPasswordRequest(val email: String, val password: String)
+
+    // function to reset the password
     @PutMapping("/user/reset-password")
-    fun resetPassword(@RequestBody email: String, @RequestBody password: String): ResponseEntity<UserDto> {
-        farmerService.resetPassword(email, password)
+    fun resetPassword(@RequestBody request: ResetPasswordRequest): ResponseEntity<Void> {
+        farmerService.resetPassword(request.email, request.password)
         return ResponseEntity(HttpStatus.OK)
     }
 
