@@ -26,6 +26,7 @@ class AmbientService(private val ambientRepository: AmbientVariableRepository) {
                 return variable
               }
          }
+        
         return null
     }
 
