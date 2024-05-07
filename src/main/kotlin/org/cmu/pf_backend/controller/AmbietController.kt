@@ -19,7 +19,7 @@ class AmbietController (val ambientService: AmbientService) {
           AmbientVariableResponseDto(
               id = it.id,
               name = it.name,
-              threshold = it.threshold 
+              threshold = it.threshold
           )
       }, HttpStatus.OK)
     }
