@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 class AmbientService(private val ambientRepository: AmbientVariableRepository) {
 
     fun addAmbientVariable(ambientVariable: AmbientVariable): AmbientVariable {
-        return ambientRepository.save(ambientVariable)
+        return ambientRepository.save(ambientVariable) 
     }
 
     fun getAllAmbientVariables(): List<AmbientVariable> {
@@ -26,7 +26,7 @@ class AmbientService(private val ambientRepository: AmbientVariableRepository) {
                 return variable
               }
          }
-        
+
         return null
     }
 
