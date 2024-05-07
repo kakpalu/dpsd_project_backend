@@ -26,7 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableWebSecurity
 class SecurityConfig(
     private val tokenService: TokenService,
-) {
+) { 
 
     @Bean
     @Throws(Exception::class)
