@@ -3,7 +3,6 @@ package org.cmu.pf_backend.service
 import org.cmu.pf_backend.model.Farmer
 import org.cmu.pf_backend.repository.FarmerRepository
 import org.springframework.stereotype.Service
-import org.cmu.pf_backend.service.HashService
 
 @Service
 class FarmerService(private val farmerRepository: FarmerRepository) {
@@ -22,7 +21,7 @@ class FarmerService(private val farmerRepository: FarmerRepository) {
     }
 
     fun getAllUsers(): List<Farmer> {
-        return farmerRepository.findAll().toList()
+        return farmerRepository.findAll().toList() 
     }
 
     fun getUser(id: Long): Farmer {
