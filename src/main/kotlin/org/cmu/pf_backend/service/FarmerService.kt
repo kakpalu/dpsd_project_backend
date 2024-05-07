@@ -18,7 +18,7 @@ class FarmerService(private val farmerRepository: FarmerRepository) {
             }
         }
         return farmerRepository.save(farmer)
-    } 
+    }
 
     fun getAllUsers(): List<Farmer> {
         return farmerRepository.findAll().toList()
