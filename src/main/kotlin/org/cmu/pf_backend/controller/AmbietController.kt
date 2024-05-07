@@ -16,7 +16,7 @@ class AmbietController (val ambientService: AmbientService) {
     fun getAmbientVariables(): ResponseEntity<List<AmbientVariableResponseDto>>{
 
       return ResponseEntity(ambientService.getAllAmbientVariables().map {
-          AmbientVariableResponseDto(
+          AmbientVariableResponseDto( 
               id = it.id,
               name = it.name,
               threshold = it.threshold
