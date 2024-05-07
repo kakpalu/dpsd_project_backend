@@ -21,7 +21,7 @@ class FarmerService(private val farmerRepository: FarmerRepository) {
     }
 
     fun getAllUsers(): List<Farmer> {
-        return farmerRepository.findAll().toList() 
+        return farmerRepository.findAll().toList()
     }
 
     fun getUser(id: Long): Farmer {
