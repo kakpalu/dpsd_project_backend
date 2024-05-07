@@ -11,6 +11,13 @@ class FarmerService(private val farmerRepository: FarmerRepository) {
     private val hashService = HashService()
 
     fun createUser(farmer: Farmer): Farmer {
+        //check if a famer with the same email already exists
+        val userList = farmerRepository.findAll().toList()
+        for (user in userList) {
+            if (user.email == farmer.email) {
+                throw IllegalArgumentException("User with the same email already exists")
+            }
+        }
         return farmerRepository.save(farmer)
     }
 
