@@ -26,7 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableWebSecurity
 class SecurityConfig(
     private val tokenService: TokenService,
-) { 
+) {
 
     @Bean
     @Throws(Exception::class)
@@ -54,7 +54,7 @@ class SecurityConfig(
         http.csrf { csrf ->
             csrf.disable()
         }
-        http.headers { headers ->
+        http.headers { headers -> 
             headers.frameOptions { frameOptions ->
                 frameOptions.disable()}
             headers.xssProtection { xss ->
