@@ -14,7 +14,7 @@ enum class TransactionStatusType(@get:JsonValue val value: String) {
         fun fromInt(intValue: String?): TransactionStatusType? {
             if (intValue == null) return null
             for (i in entries) {
-                if (i.value == intValue) return i
+                if (i.value == intValue) return i 
             }
             return null
         }
